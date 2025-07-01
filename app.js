@@ -80,8 +80,13 @@ submitRemoteDataBtn.onclick = async () => {
             setStatus('Received answer. Connecting...');
             await peerConnection.setRemoteDescription(data);
         } else if (data.candidate) {
-            setStatus('Received ICE candidate. Adding...');
-            await peerConnection.addIceCandidate(data);
+            // Only add ICE candidate if remoteDescription is set
+            if (peerConnection.remoteDescription && peerConnection.remoteDescription.type) {
+                setStatus('Received ICE candidate. Adding...');
+                await peerConnection.addIceCandidate(data);
+            } else {
+                setStatus('Cannot add ICE candidate yet. Set remote offer/answer first.');
+            }
         }
     } catch (e) {
         setStatus('Invalid signaling data: ' + e.message);
