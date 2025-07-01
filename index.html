@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            background: #4a90e2;
+            color: #fff;
+            width: 100%;
+            padding: 1rem 0;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .videos {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        video {
+            width: 320px;
+            height: 240px;
+            background: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        button {
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #4a90e2;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+        textarea {
+            width: 90vw;
+            max-width: 600px;
+            height: 80px;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            resize: none;
+        }
+        .label {
+            font-size: 0.95rem;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+        .status {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #4a90e2;
+            min-height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <header>Simple Video Chat</header>
+    <div class="videos">
+        <div>
+            <div class="label">Your Video</div>
+            <video id="localVideo" autoplay playsinline muted></video>
+        </div>
+        <div>
+            <div class="label">Remote Video</div>
+            <video id="remoteVideo" autoplay playsinline></video>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="startCamera">Start Camera</button>
+        <button id="createCall" disabled>Create Call</button>
+        <button id="joinCall" disabled>Join Call</button>
+        <button id="hangUp" disabled>Hang Up</button>
+    </div>
+    <div style="width:100%;max-width:600px;">
+        <div class="label">Signaling Data (copy/paste to exchange offer/answer):</div>
+        <textarea id="signalingData" readonly></textarea>
+        <div class="label">Paste Remote Offer/Answer Here:</div>
+        <textarea id="remoteData"></textarea>
+        <button id="submitRemoteData" disabled>Submit Remote Data</button>
+    </div>
+    <div class="status" id="status"></div>
+    <script src="app.js"></script>
+</body>
+</html>
